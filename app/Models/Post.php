@@ -14,6 +14,7 @@ class Post extends Model
     public function scopePublished($query)
     {
         $query->where('published_at', "<=", Carbon::now());
+        // $query->where('published_at', '<=', Carbon::now()->toDateTimeString());
     }
 
     public function scopeFeatured($query)
