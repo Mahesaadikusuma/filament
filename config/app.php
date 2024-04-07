@@ -70,8 +70,8 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
-
+    'timezone' => 'Asia/Jakarta',
+    // UTC
     /*
     |--------------------------------------------------------------------------
     | Application Locale Configuration
@@ -83,8 +83,8 @@ return [
     |
     */
 
-    'locale' => 'en',
-
+    'locale' => 'id',
+    // en
     /*
     |--------------------------------------------------------------------------
     | Application Fallback Locale
@@ -109,8 +109,8 @@ return [
     |
     */
 
-    'faker_locale' => 'en_US',
-
+    'faker_locale' => 'id_ID',
+    // en_US
     /*
     |--------------------------------------------------------------------------
     | Encryption Key
@@ -167,6 +167,7 @@ return [
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
+        App\Providers\Filament\AdminPanelProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\FortifyServiceProvider::class,
         App\Providers\JetstreamServiceProvider::class,

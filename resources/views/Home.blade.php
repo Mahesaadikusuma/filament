@@ -1,3 +1,7 @@
+@section('title')
+    Home pagee
+@endsection
+
 <x-app-layout>
     @section('hero')
         <div class="w-full text-center py-32">
@@ -12,6 +16,24 @@
     @endsection
 
     <div class="mb-10 w-full">
+        <div class="mb-16">
+            <h2 class="mt-16 mb-5 text-3xl text-yellow-500 font-bold">All</h2>
+            <div class="w-full">
+                <div class="grid grid-cols-3 gap-10 w-full">
+                    @foreach ($all as $item)
+                        <div class="md:col-span-1 col-span-3">
+                            {{-- INI ADALAH COMPONETS JADI SETIAP COMPONENT HARUS MEMILIKI PROPS DENGAN PROPSNYA ADALAH "post" yang disamakan dengan $item dari foreach nya --}}
+                            <x-post.post-card :post="$item" />
+                        </div>
+                    @endforeach
+
+                </div>
+            </div>
+            <a class="mt-10 block text-center text-lg text-yellow-500 font-semibold"
+                href="http://127.0.0.1:8000/blog">More
+                Posts</a>
+        </div>
+
         <div class="mb-16">
             <h2 class="mt-16 mb-5 text-3xl text-yellow-500 font-bold">Featured Posts</h2>
             <div class="w-full">

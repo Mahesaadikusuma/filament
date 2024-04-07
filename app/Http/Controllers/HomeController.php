@@ -16,7 +16,7 @@ class HomeController extends Controller
         // atest('published_at')->take(3)->get()
         $featuredPost = Post::published()->featured()->latest('published_at')->take(3)->get();
         $latestPost = Post::published()->latest('published_at')->take(9)->get();
-
+        $all = Post::take(3)->get();
         // $excludedIds = $featuredPost->pluck('id')->toArray();
 
         // $latestPost = Post::published()
@@ -25,6 +25,7 @@ class HomeController extends Controller
         //     ->get();
         return view('home', [
             'featuredPost' => $featuredPost,
+            'all' => $all,
             // Default
             // 'latestPost' => Post::published()->featured()->latest('published_at')->get(),
 

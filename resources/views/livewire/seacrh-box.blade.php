@@ -1,4 +1,5 @@
-<div id="search-box">
+{{-- ini menggunakan livewire search --}}
+{{-- <div id="search-box">
     <div>
         <h3 class="text-lg font-semibold text-gray-900 mb-3">Search</h3>
         <div class="w-52 flex rounded-2xl bg-gray-100 py-2 px-3 mb-3 items-center">
@@ -8,12 +9,14 @@
                         d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                 </svg>
             </span>
-            {{-- wire:model.live.debounce.500ms="search" --}}
-            {{-- Bisa pakai yang diatas jika ingin live search --}}
+            wire:model.live.debounce.500ms="search"
+            Bisa pakai yang diatas jika ingin live search
             <input wire:model='search' wire:keydown.enter='update'
                 class="w-40 ml-1 bg-transparent focus:outline-none focus:border-none focus:ring-0 outline-none border-none text-xs text-gray-800 placeholder:text-gray-400"
                 type="text" placeholder="Search..">
         </div>
         <x-button wire:click="update" wire:keydown.enter='update'>Search</x-button>
     </div>
-</div>
+</div> --}}
+
+

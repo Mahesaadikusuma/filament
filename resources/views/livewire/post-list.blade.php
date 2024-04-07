@@ -15,9 +15,16 @@
         </div>
     </div>
     <div class="py-4">
-        @foreach ($this->posts as $post)
+        @forelse  ($this->posts as $post)
             <x-post.post-item :post="$post" />
-        @endforeach
+        @empty
+            @if ($search)
+                Searching Not Found {{ $search }}
+            @endif
+        @endforelse
+
+
+
     </div>
 
     <div class="my-3">

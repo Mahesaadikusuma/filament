@@ -3,7 +3,7 @@
 <div class="">
     <a href="#">
         <div>
-            <img class="w-full rounded-xl" src="{{ $post->image }}">
+            <img class="w-full rounded-xl" src="{{ $post->getThubnailImage() }}">
         </div>
     </a>
     <div class="mt-3">
@@ -14,7 +14,7 @@
                 rounded-xl px-3 py-1 text-sm mr-3">
                 Laravel
             </a>
-            <p class="text-gray-500 text-sm">{{ $post->published_at }}</p>
+            <p class="text-gray-500 text-sm">{{ $post->published_at->diffForHumans() }} ed</p>
         </div>
         <a href="#" class="text-xl font-bold text-gray-900">{{ $post->title }}</a>
     </div>

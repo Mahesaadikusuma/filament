@@ -7,13 +7,25 @@ use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
 
 class Post extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
     protected $table = 'posts';
 
+    protected $fillable = [
+        "user_id",
+        "title",
+        "slug",
+        "image",
+        "body",
+        "published_at",
+        "featured",
+    ];
 
     /**
      * The attributes that should be cast.
@@ -22,7 +34,29 @@ class Post extends Model
      */
     protected $casts = [
         'published_at' => 'datetime',
+        'categories' => 'array',
     ];
+
+
+    /**
+     * Get the author that owns the Post
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function author(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    /**
+     * The roles that belong to the Post
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function categories(): BelongsToMany
+    {
+        return $this->belongsToMany(Category::class, 'categories_post');
+    }
 
 
 
@@ -30,6 +64,13 @@ class Post extends Model
     {
         $query->where('published_at', "<=", Carbon::now());
         // $query->where('published_at', '<=', Carbon::now()->toDateTimeString());
+    }
+
+    public function scopeWithCategory($query, string $category)
+    {
+        $query->whereHas('categories', function ($query) use ($category) {
+            $query->where('slug', $category);
+        });
     }
 
     public function scopeFeatured($query)
@@ -51,13 +92,14 @@ class Post extends Model
         return ($mins < 1) ? 1 : $mins;
     }
 
-    /**
-     * Get the author that owns the Post
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function author(): BelongsTo
+    public function getThubnailImage()
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        $isURL = str_contains($this->image, 'http');
+
+        return ($isURL) ? $this->image : Storage::url($this->image);
+
+        // BISA MENGGUNAKAN CODE DIBAWAH INI JADI SESUAI DENGAN DISKNYA 
+        // TAPI JIKA MEMAKAI CODE DIBAWAH ->url akan error tapi bisa digunakan dengan baik 
+        // Storage::disk('local')->url($this->image)
     }
 }
